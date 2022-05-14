@@ -1,0 +1,15 @@
+D:\personal_planner_ap\personal_planner_api\DAL\bin\Debug\net5.0\DAL.deps.json
+D:\personal_planner_ap\personal_planner_api\DAL\bin\Debug\net5.0\DAL.runtimeconfig.json
+D:\personal_planner_ap\personal_planner_api\DAL\bin\Debug\net5.0\DAL.runtimeconfig.dev.json
+D:\personal_planner_ap\personal_planner_api\DAL\bin\Debug\net5.0\DAL.dll
+D:\personal_planner_ap\personal_planner_api\DAL\bin\Debug\net5.0\ref\DAL.dll
+D:\personal_planner_ap\personal_planner_api\DAL\bin\Debug\net5.0\DAL.pdb
+D:\personal_planner_ap\personal_planner_api\DAL\obj\Debug\net5.0\DAL.csproj.AssemblyReference.cache
+D:\personal_planner_ap\personal_planner_api\DAL\obj\Debug\net5.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\personal_planner_ap\personal_planner_api\DAL\obj\Debug\net5.0\DAL.AssemblyInfoInputs.cache
+D:\personal_planner_ap\personal_planner_api\DAL\obj\Debug\net5.0\DAL.AssemblyInfo.cs
+D:\personal_planner_ap\personal_planner_api\DAL\obj\Debug\net5.0\DAL.csproj.CoreCompileInputs.cache
+D:\personal_planner_ap\personal_planner_api\DAL\obj\Debug\net5.0\DAL.dll
+D:\personal_planner_ap\personal_planner_api\DAL\obj\Debug\net5.0\ref\DAL.dll
+D:\personal_planner_ap\personal_planner_api\DAL\obj\Debug\net5.0\DAL.pdb
+D:\personal_planner_ap\personal_planner_api\DAL\obj\Debug\net5.0\DAL.genruntimeconfig.cache
