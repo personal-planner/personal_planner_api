@@ -21,5 +21,11 @@ namespace DAL
            context.Acts.Add(model);
            context.SaveChanges();
         }
+
+        public void ChangeAct(ActModel model)
+        {
+            context.Acts.Update(model);
+            context.SaveChanges();
+        }
     }
 }

@@ -19,13 +19,22 @@ namespace BLL
             this.categoryQuery = categoryQuery;
         }
 
-        public CategoryResponseDTO CreateCategory(CreateCategoryDTO catData)
+        public CategoryResponseDTO CreateCategory(CreateCategoryDTO model)
         {
-            var model = mapper.Map<CategoryModel>(catData);
+            var instanceModel = mapper.Map<CategoryModel>(model);
 
-            categoryCommand.CreateCategory(model);
+            categoryCommand.CreateCategory(instanceModel);
 
-            return mapper.Map<CategoryResponseDTO>(model);
+            return mapper.Map<CategoryResponseDTO>(instanceModel);
+        }
+
+        public CategoryResponseDTO ChangeCategory(ChangeCategoryDTO model)
+        {
+            var instanceModel = mapper.Map<CategoryModel>(model);
+
+            categoryCommand.ChangeCategory(instanceModel);
+
+            return mapper.Map<CategoryResponseDTO>(instanceModel);
         }
 
         public IEnumerable<CategoryResponseDTO> GetCategories(Guid userId)

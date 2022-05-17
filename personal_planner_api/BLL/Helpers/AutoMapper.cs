@@ -11,7 +11,9 @@ namespace BLL
 		{
 			CreateMap<ActModel, ActResponseDTO>();
 			CreateMap<CreateActDTO, ActModel>();
+			CreateMap<ChangeActDTO, ActModel>();
 			CreateMap<CreateCategoryDTO, CategoryModel>();
+			CreateMap<ChangeCategoryDTO, CategoryModel>();
 			CreateMap<CategoryModel, CategoryResponseDTO>();
 		}
 	}

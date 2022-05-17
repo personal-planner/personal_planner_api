@@ -10,6 +10,7 @@ namespace BLL
     public interface IActService
     {
         public ActResponseDTO CreateAct(CreateActDTO model);
+        public ActResponseDTO ChangeAct(ChangeActDTO model);
         public IEnumerable<ActResponseDTO> GetActs(Guid id);
         public PaginatedActsResponceDTO GetPaginatedActs(PaginatedActsDTO data);
     }

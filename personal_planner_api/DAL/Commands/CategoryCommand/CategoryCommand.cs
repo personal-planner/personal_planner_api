@@ -16,5 +16,11 @@ namespace DAL
             context.Categories.Add(model);
             context.SaveChanges();
         }
+
+        public void ChangeCategory(CategoryModel model)
+        {
+            context.Categories.Update(model);
+            context.SaveChanges();
+        }
     }
 }

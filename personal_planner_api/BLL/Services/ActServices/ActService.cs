@@ -29,6 +29,15 @@ namespace BLL
             return mapper.Map<ActResponseDTO>(instanceModel);
         }
 
+        public ActResponseDTO ChangeAct(ChangeActDTO model)
+        {
+            ActModel instanceModel = mapper.Map<ActModel>(model);
+
+            actCommand.ChangeAct(instanceModel);
+
+            return mapper.Map<ActResponseDTO>(instanceModel);
+        }
+
         public IEnumerable<ActResponseDTO> GetActs(Guid id)
         {
             return mapper.Map<IEnumerable<ActResponseDTO>>(actQuery.GetActsByUserId(id));
