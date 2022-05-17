@@ -1,14 +1,13 @@
-﻿using DAL.EntityFramework;
-using DAL.Entries;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Commands.ActCommands
+namespace DAL
 {
-    class ActCommand
+
+    public class ActCommand : IActCommand
     {
         private  PlannerDbContext context { get; }
 
@@ -17,10 +16,10 @@ namespace DAL.Commands.ActCommands
             this.context = context;
         }
 
-        public async Task CreateAct(ActModel model)
+        public void CreateAct(ActModel model)
         {
-           await context.Acts.AddAsync(model);
-           await context.SaveChangesAsync();
+           context.Acts.Add(model);
+           context.SaveChanges();
         }
     }
 }
