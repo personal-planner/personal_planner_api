@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DTO.ActDTO
+namespace DTO
 {
-    public class ActRequestDTO
+    public class LoginResponse
     {
+        public string Token { get; set; }
+        public DateTime Expiration { get; set; }
     }
 }

@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
+using DAL;
+using DTO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BLL.Helpers
+namespace BLL
 {
-    class AutoMapper
-    {
-    }
+    public class AppMappingProfile : Profile
+	{
+		public AppMappingProfile()
+		{
+			CreateMap<ActModel, ActResponseDTO>();
+			CreateMap<CreateActDTO, ActModel>();
+			CreateMap<ChangeActDTO, ActModel>();
+			CreateMap<CreateCategoryDTO, CategoryModel>();
+			CreateMap<ChangeCategoryDTO, CategoryModel>();
+			CreateMap<CategoryModel, CategoryResponseDTO>();
+		}
+	}
 }

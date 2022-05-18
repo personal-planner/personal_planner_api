@@ -1,14 +1,17 @@
-﻿using DTO.ActDTO;
+﻿using DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.Services.ActServices
+namespace BLL
 {
     public interface IActService
     {
-        public Task<ActResponseDTO> CreateAct(ActRequestDTO model);
+        public ActResponseDTO CreateAct(CreateActDTO model);
+        public ActResponseDTO ChangeAct(ChangeActDTO model);
+        public IEnumerable<ActResponseDTO> GetActs(Guid id);
+        public PaginatedActsResponceDTO GetPaginatedActs(PaginatedActsDTO data);
     }
 }

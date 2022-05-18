@@ -1581,6 +1581,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "DTO/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/DTO.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DTO.dll": {}
+        }
       }
     }
   },
@@ -5942,10 +5952,16 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "DTO/1.0.0": {
+      "type": "project",
+      "path": "../DTO/DTO.csproj",
+      "msbuildProject": "../DTO/DTO.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "DTO >= 1.0.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 5.0.17",
       "Microsoft.EntityFrameworkCore >= 5.0.17",
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.17",
@@ -5953,19 +5969,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\proto\\.nuget\\packages\\": {}
+    "C:\\Users\\andri\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\personal_planner_ap\\personal_planner_api\\DAL\\DAL.csproj",
+      "projectUniqueName": "C:\\Users\\andri\\Source\\Repos\\personal_planner_api\\personal_planner_api\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "D:\\personal_planner_ap\\personal_planner_api\\DAL\\DAL.csproj",
-      "packagesPath": "C:\\Users\\proto\\.nuget\\packages\\",
-      "outputPath": "D:\\personal_planner_ap\\personal_planner_api\\DAL\\obj\\",
+      "projectPath": "C:\\Users\\andri\\Source\\Repos\\personal_planner_api\\personal_planner_api\\DAL\\DAL.csproj",
+      "packagesPath": "C:\\Users\\andri\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\andri\\Source\\Repos\\personal_planner_api\\personal_planner_api\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\proto\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\andri\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5978,7 +5994,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\andri\\Source\\Repos\\personal_planner_api\\personal_planner_api\\DTO\\DTO.csproj": {
+              "projectPath": "C:\\Users\\andri\\Source\\Repos\\personal_planner_api\\personal_planner_api\\DTO\\DTO.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -6025,7 +6045,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -8,19 +8,19 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\proto\\.nuget\\packages\\": {}
+    "C:\\Users\\andri\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\personal_planner_ap\\personal_planner_api\\DTO\\DTO.csproj",
+      "projectUniqueName": "C:\\Users\\andri\\Source\\Repos\\personal_planner_api\\personal_planner_api\\DTO\\DTO.csproj",
       "projectName": "DTO",
-      "projectPath": "D:\\personal_planner_ap\\personal_planner_api\\DTO\\DTO.csproj",
-      "packagesPath": "C:\\Users\\proto\\.nuget\\packages\\",
-      "outputPath": "D:\\personal_planner_ap\\personal_planner_api\\DTO\\obj\\",
+      "projectPath": "C:\\Users\\andri\\Source\\Repos\\personal_planner_api\\personal_planner_api\\DTO\\DTO.csproj",
+      "packagesPath": "C:\\Users\\andri\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\andri\\Source\\Repos\\personal_planner_api\\personal_planner_api\\DTO\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\proto\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\andri\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -60,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

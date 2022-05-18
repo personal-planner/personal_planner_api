@@ -1,5 +1,6 @@
-﻿using BLL.Services.ActServices;
-using DTO.ActDTO;
+﻿using BLL;
+using DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -7,13 +8,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Controllers
+namespace API
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ActController : ControllerBase
     {
-        private  IActService actService { get; }
+        private IActService actService { get; }
 
         public ActController(IActService actService)
         {
@@ -21,11 +23,18 @@ namespace API.Controllers
 
         }
 
-        public async Task<ActionResult<ActResponseDTO>> CreateAct([FromBody] ActRequestDTO model)
+        [HttpPost]
+        public ActionResult<ActResponseDTO> CreateAct([FromBody] CreateActDTO model)
         {
-            await actService.CreateAct(model);
+            actService.CreateAct(model);
 
             return Ok(new ActResponseDTO());
+        }
+
+        [HttpPost("getpaginatedacts")]
+        public ActionResult<PaginatedActsResponceDTO> GetPaginatedActs(PaginatedActsDTO settings)
+        {
+            return Ok(actService.GetPaginatedActs(settings));
         }
     }
 }
