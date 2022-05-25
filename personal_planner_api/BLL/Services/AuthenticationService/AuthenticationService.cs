@@ -16,11 +16,11 @@ namespace BLL
     public class AuthenticationService : IAuthenticationService
     {
         private readonly UserManager<UserModel> userManager;
-        private readonly RoleManager<GuidRole> roleManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly SignInManager<UserModel> signInManager;
         private readonly IConfiguration configuration;
 
-        public AuthenticationService(UserManager<UserModel> userManager, RoleManager<GuidRole> roleManager, SignInManager<UserModel> signInManager, IConfiguration configuration)
+        public AuthenticationService(UserManager<UserModel> userManager, RoleManager<IdentityRole> roleManager, SignInManager<UserModel> signInManager, IConfiguration configuration)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
@@ -44,6 +44,14 @@ namespace BLL
             };
 
             var result = userManager.CreateAsync(user, model.Password).Result;
+
+            if (!roleManager.RoleExistsAsync(UserRoles.User).Result)
+                roleManager.CreateAsync(new IdentityRole(UserRoles.User)).Wait();
+
+            if (roleManager.RoleExistsAsync(UserRoles.User).Result)
+            {
+                userManager.AddToRoleAsync(user, UserRoles.User).Wait();
+            }
 
             if (!result.Succeeded)
             {
@@ -75,6 +83,52 @@ namespace BLL
             }
 
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
+            
+            var token = new JwtSecurityToken(
+                issuer: configuration["JWT:ValidIssuer"],
+                audience: configuration["JWT:ValidAudience"],
+                expires: DateTime.Now.AddHours(3),
+                claims: authClaims,
+                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                );
+
+            var newRefreshToken = userManager.GenerateUserTokenAsync(user, "MyApp", "RefreshToken").Result;
+            userManager.SetAuthenticationTokenAsync(user, "MyApp", "RefreshToken", newRefreshToken).Wait();
+
+            return new LoginResponse
+            {
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Expiration = token.ValidTo,
+                RefreshToken = userManager.GetAuthenticationTokenAsync(user, "MyApp", "RefreshToken").Result
+            };
+        }
+        public LoginResponse RefreshToken(RefreshTokenRequest model)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwt = handler.ReadJwtToken(model.AccessToken);
+            var name = jwt.Claims.First().Value;
+
+            var user = userManager.FindByNameAsync(name).Result;
+
+            if (user == null || !userManager.VerifyUserTokenAsync(user, "MyApp", "RefreshToken", model.RefreshToken).Result)
+            {
+                return null;
+            }
+
+            var userRoles = userManager.GetRolesAsync(user).Result;
+
+            var authClaims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            };
+
+            foreach (var userRole in userRoles)
+            {
+                authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+            }
+
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
 
             var token = new JwtSecurityToken(
                 issuer: configuration["JWT:ValidIssuer"],
@@ -84,10 +138,15 @@ namespace BLL
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );
 
+            userManager.RemoveAuthenticationTokenAsync(user, "MyApp", "RefreshToken").Wait();
+            var newRefreshToken = userManager.GenerateUserTokenAsync(user, "MyApp", "RefreshToken").Result;
+            userManager.SetAuthenticationTokenAsync(user, "MyApp", "RefreshToken", newRefreshToken).Wait();
+
             return new LoginResponse
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
-                Expiration = token.ValidTo
+                Expiration = token.ValidTo,
+                RefreshToken = newRefreshToken
             };
         }
     }

@@ -11,7 +11,7 @@ namespace BLL
     {
         public ActResponseDTO CreateAct(CreateActDTO model);
         public ActResponseDTO ChangeAct(ChangeActDTO model);
-        public IEnumerable<ActResponseDTO> GetActs(Guid id);
+        public IEnumerable<ActResponseDTO> GetActs(string id);
         public PaginatedActsResponceDTO GetPaginatedActs(PaginatedActsDTO data);
     }
 }

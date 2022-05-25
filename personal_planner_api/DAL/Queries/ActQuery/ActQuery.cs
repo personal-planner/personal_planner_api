@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,9 +18,13 @@ namespace DAL
         {
             return dbContext.Acts;
         }
-        public IQueryable<ActModel> GetActsByUserId(Guid id)
+        public IQueryable<ActModel> GetActsByUserId(string id)
         {
             return dbContext.Acts.Where(a => a.UserId == id);
+        }
+        public IQueryable<ActModel> GetActsByUserName(string name)
+        {
+            return dbContext.Acts.Include(a => a.User).Where(a => a.User.UserName == name);
         }
     }
 }

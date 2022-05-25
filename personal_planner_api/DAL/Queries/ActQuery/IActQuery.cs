@@ -7,6 +7,7 @@ namespace DAL
     public interface IActQuery
     {
         public IQueryable<ActModel> GetActs();
-        public IQueryable<ActModel> GetActsByUserId(Guid id);
+        public IQueryable<ActModel> GetActsByUserId(string id);
+        public IQueryable<ActModel> GetActsByUserName(string name);
     }
 }

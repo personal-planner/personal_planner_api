@@ -30,22 +30,19 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PlannerDbContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString("LocalConnStr")));
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnStr")));
 
-            services.AddIdentity<UserModel, GuidRole>()
-                .AddDefaultTokenProviders()
+            services.AddIdentity<UserModel, IdentityRole>()
                 .AddEntityFrameworkStores<PlannerDbContext>()
-                .AddUserStore<UserStore<UserModel, GuidRole, PlannerDbContext, Guid>>()
-                .AddRoleStore<RoleStore<GuidRole, PlannerDbContext, Guid>>();
+                .AddDefaultTokenProviders()
+                .AddTokenProvider("MyApp", typeof(DataProtectorTokenProvider<UserModel>));
 
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-
-            .AddJwtBearer(options =>
+            }).AddJwtBearer(options =>
             {
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = false;
@@ -60,13 +57,15 @@ namespace WebApplication1
             });
 
             services.AddAutoMapper(typeof(AppMappingProfile));
-            services.AddScoped<IActQuery, ActQuery>();
-            services.AddScoped<IActCommand, ActCommand>();
-            services.AddScoped<IActService, ActService>();
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
-            services.AddScoped<ICategoryCommand, CategoryCommand>();
-            services.AddScoped<ICategoryQuery, CategoryQuery>();
-            services.AddScoped<ICategoryService, CategoryService>();
+
+            services.AddTransient<IUserQuery, UserQuery>();
+            services.AddTransient<IActQuery, ActQuery>();
+            services.AddTransient<IActCommand, ActCommand>();
+            services.AddTransient<IActService, ActService>();
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
+            services.AddTransient<ICategoryCommand, CategoryCommand>();
+            services.AddTransient<ICategoryQuery, CategoryQuery>();
+            services.AddTransient<ICategoryService, CategoryService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -85,10 +84,18 @@ namespace WebApplication1
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
 
+            app.UseCors(
+                options => options.AllowAnyOrigin()
+                                  .SetIsOriginAllowedToAllowWildcardSubdomains()
+                                  .AllowAnyHeader()
+                                  .AllowAnyMethod()
+            );
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

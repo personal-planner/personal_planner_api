@@ -1,12 +1,8 @@
 ﻿using BLL;
 using DTO;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace API
 {
@@ -23,18 +19,18 @@ namespace API
 
         }
 
-        [HttpPost]
+        [HttpPost("createact")]
         public ActionResult<ActResponseDTO> CreateAct([FromBody] CreateActDTO model)
         {
-            actService.CreateAct(model);
-
-            return Ok(new ActResponseDTO());
+            model.UserName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return Ok(actService.CreateAct(model));
         }
 
         [HttpPost("getpaginatedacts")]
-        public ActionResult<PaginatedActsResponceDTO> GetPaginatedActs(PaginatedActsDTO settings)
+        public ActionResult<PaginatedActsResponceDTO> GetPaginatedActs(PaginatedActsDTO model)
         {
-            return Ok(actService.GetPaginatedActs(settings));
+            model.UserName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return Ok(actService.GetPaginatedActs(model));
         }
     }
 }

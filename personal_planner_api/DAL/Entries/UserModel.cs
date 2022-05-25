@@ -6,22 +6,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL
 {
-    public class UserModel: IdentityUser<Guid>
+    public class UserModel: IdentityUser
     {
         public UserModel()
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
         }
 
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public override Guid Id
+        public override string Id
         {
             get { return base.Id; }
             set { base.Id = value; }
         }
         public virtual IEnumerable<ActModel> Acts { get; set; }
         public virtual IEnumerable<CategoryModel> Categories { get; set; }
+        //public virtual IEnumerable<RefreshToken> RefreshTokens { get; set; }
     }
 }
  

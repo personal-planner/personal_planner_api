@@ -16,7 +16,7 @@ namespace DAL
             this.context = context;
         }
 
-        public IQueryable<CategoryModel> GetCategories(Guid userId)
+        public IQueryable<CategoryModel> GetCategories(string userId)
         {
             return context.Categories.Include(c => c.Acts).Where(c => c.UserId == userId);
         }

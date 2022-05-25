@@ -12,17 +12,21 @@ namespace BLL
         private readonly IActCommand actCommand;
         private readonly IActQuery actQuery;
         private readonly IMapper mapper;
+        private readonly IUserQuery userQuery;
 
-        public ActService(IActCommand actCommand, IMapper mapper, IActQuery actQuery)
+        public ActService(IActCommand actCommand, IMapper mapper, IActQuery actQuery, IUserQuery userQuery)
         {
             this.actCommand = actCommand;
             this.mapper = mapper;
             this.actQuery = actQuery;
+            this.userQuery = userQuery;
         }
 
         public ActResponseDTO CreateAct(CreateActDTO model)
         {
             ActModel instanceModel = mapper.Map<ActModel>(model);
+
+            instanceModel.User = userQuery.GetByName(model.UserName);
 
             actCommand.CreateAct(instanceModel);
 
@@ -38,7 +42,7 @@ namespace BLL
             return mapper.Map<ActResponseDTO>(instanceModel);
         }
 
-        public IEnumerable<ActResponseDTO> GetActs(Guid id)
+        public IEnumerable<ActResponseDTO> GetActs(string id)
         {
             return mapper.Map<IEnumerable<ActResponseDTO>>(actQuery.GetActsByUserId(id));
         }
@@ -46,7 +50,7 @@ namespace BLL
         {
             var responce = new PaginatedActsResponceDTO();
 
-            var acts = actQuery.GetActsByUserId(data.UserId);
+            var acts = actQuery.GetActsByUserName(data.UserName);
 
             if (data.Filter != null)
             {

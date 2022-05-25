@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -22,15 +23,17 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<CategoryResponseDTO>> GetCategories([FromQuery] Guid userId)
+        public ActionResult<IEnumerable<CategoryResponseDTO>> GetCategories([FromQuery] string userId)
         {
             return Ok(categoryService.GetCategories(userId));
         }
 
         [HttpPost]
-        public ActionResult<CategoryResponseDTO> CreateCategory([FromBody] CreateCategoryDTO data)
+        public ActionResult<CategoryResponseDTO> CreateCategory([FromBody] CreateCategoryDTO model)
         {
-            return Ok(categoryService.CreateCategory(data));
+            model.UserName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            return Ok(categoryService.CreateCategory(model));
         }
     }
 }

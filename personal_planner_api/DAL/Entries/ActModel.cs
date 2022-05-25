@@ -11,9 +11,9 @@ namespace DAL
     {
         public ActModel()
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
         }
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public ActPriority Priority { get; set; }
@@ -22,10 +22,10 @@ namespace DAL
         public DateTime ActualStartDate { get; set; }
         public DateTime ActualEndDate { get; set; }
         public int ScheduledDuration { get; set; }
-        public Guid? CategoryId { get; set; }
+        public string? CategoryId { get; set; }
         [ForeignKey(nameof(CategoryId))]
         public virtual CategoryModel Category { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         [ForeignKey(nameof(UserId))]
         public virtual UserModel User { get; set; }
     }
