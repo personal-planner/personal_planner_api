@@ -1,8 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\personal_planner_api"
+    "\\personal_planner_api",
+    "\\personal_planner_api\\BLL",
+    "\\personal_planner_api\\BLL\\Services",
+    "\\personal_planner_api\\BLL\\Services\\AuthenticationService",
+    "\\personal_planner_api\\BLL\\Services\\CategoryService",
+    "\\personal_planner_api\\WebApplication1"
   ],
-  "SelectedNode": "\\personal_planner_api\\personal_planner_api.sln",
+  "SelectedNode": "\\personal_planner_api\\BLL\\Services\\AuthenticationService\\AuthenticationService.cs",
   "PreviewInSolutionExplorer": false
 }

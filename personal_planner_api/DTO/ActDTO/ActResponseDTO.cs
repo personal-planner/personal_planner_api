@@ -8,7 +8,7 @@ namespace DTO
 
     public class ActResponseDTO
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public ActPriority Priority { get; set; }
@@ -17,6 +17,6 @@ namespace DTO
         public DateTime ActualStartDate { get; set; }
         public DateTime ActualEndDate { get; set; }
         public int ScheduledDuration { get; set; }
-        public Guid CategoryId { get; set; }
+        public string CategoryId { get; set; }
     }
 }

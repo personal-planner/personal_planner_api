@@ -6,7 +6,7 @@ namespace BLL
 {
     public interface ICategoryService
     {
-        public IEnumerable<CategoryResponseDTO> GetCategories(Guid userId);
+        public IEnumerable<CategoryResponseDTO> GetCategories(string userId);
         public CategoryResponseDTO CreateCategory(CreateCategoryDTO model);
         public CategoryResponseDTO ChangeCategory(ChangeCategoryDTO model);
     }

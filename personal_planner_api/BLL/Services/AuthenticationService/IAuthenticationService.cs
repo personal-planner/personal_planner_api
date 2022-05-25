@@ -6,5 +6,6 @@ namespace BLL
     {
         RegistrationResponse Register(RegisterRequest model);
         LoginResponse Login(LoginRequest model);
+        LoginResponse RefreshToken(RefreshTokenRequest model);
     }
 }

@@ -11,17 +11,21 @@ namespace BLL
         private readonly ICategoryCommand categoryCommand;
         private readonly ICategoryQuery categoryQuery;
         private readonly IMapper mapper;
+        private readonly IUserQuery userQuery;
 
-        public CategoryService(ICategoryQuery categoryQuery, IMapper mapper, ICategoryCommand categoryCommand)
+        public CategoryService(ICategoryQuery categoryQuery, IMapper mapper, ICategoryCommand categoryCommand, IUserQuery userQuery)
         {
             this.categoryCommand = categoryCommand;
-            this.mapper = mapper; 
+            this.mapper = mapper;
             this.categoryQuery = categoryQuery;
+            this.userQuery = userQuery;
         }
 
         public CategoryResponseDTO CreateCategory(CreateCategoryDTO model)
         {
             var instanceModel = mapper.Map<CategoryModel>(model);
+
+            instanceModel.User = userQuery.GetByName(model.UserName);
 
             categoryCommand.CreateCategory(instanceModel);
 
@@ -37,7 +41,7 @@ namespace BLL
             return mapper.Map<CategoryResponseDTO>(instanceModel);
         }
 
-        public IEnumerable<CategoryResponseDTO> GetCategories(Guid userId)
+        public IEnumerable<CategoryResponseDTO> GetCategories(string userId)
         {
             return mapper.Map<IEnumerable<CategoryResponseDTO>>(categoryQuery.GetCategories(userId));
         }
